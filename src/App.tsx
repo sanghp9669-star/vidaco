@@ -9,6 +9,7 @@ import { CaseStudiesSection } from './components/CaseStudiesSection';
 import { QuoteConsultationSection } from './components/QuoteConsultationSection';
 import { Footer } from './components/Footer';
 import { SolutionModal } from './components/SolutionModal';
+import { FloatingSupportButton } from './components/FloatingSupportButton';
 import { Solution } from './data/viendatData';
 
 export default function App() {
@@ -66,6 +67,9 @@ export default function App() {
         onClose={() => setActiveModalSolution(null)}
         onRequestQuote={(solId) => scrollToConsultation(solId)}
       />
+
+      {/* Floating Action Support Button (Live Chat, Zalo, WhatsApp, Hotline) */}
+      <FloatingSupportButton />
     </div>
   );
 }
