@@ -1,0 +1,6 @@
+{
+  "name": "Viễn Đạt Telecom - Landing Page",
+  "description": "Trang landing page giới thiệu Công ty TNHH Thương mại và Dịch vụ Viễn Đạt (viendat.com) - Giải pháp viễn thông, truyền thông hợp nhất và hạ tầng mạng doanh nghiệp.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
