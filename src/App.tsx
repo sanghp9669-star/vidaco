@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
+import { NetworkProberWidget } from './components/NetworkProberWidget';
 import { PartnersSection } from './components/PartnersSection';
 import { AboutSection } from './components/AboutSection';
 import { SolutionsSection } from './components/SolutionsSection';
@@ -35,6 +36,9 @@ export default function App() {
       <main className="flex-1">
         {/* Hero Section */}
         <Hero onOpenConsultation={() => scrollToConsultation()} />
+
+        {/* Live Network & SLA Diagnostic Prober */}
+        <NetworkProberWidget />
 
         {/* Global Technology Partners Bar */}
         <PartnersSection />

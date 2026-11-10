@@ -32,6 +32,7 @@ export interface ProjectCase {
   scope: string;
   outcome: string;
   techStack: string;
+  image: string;
 }
 
 export const COMPANY_INFO = {
@@ -186,7 +187,7 @@ export const SOLUTIONS: Solution[] = [
     shortDesc: "Kiến trúc mạng lõi trung tâm dữ liệu, thiết bị chuyển mạch doanh nghiệp và hệ thống phòng chống tấn công mạng toàn diện.",
     detailedDesc: "Viễn Đạt tư vấn và cung cấp hệ thống hạ tầng mạng toàn diện từ Core Routing, Enterprise Switching đến bảo mật an ninh mạng chuyên sâu với Palo Alto Networks, ngăn chặn mọi mối đe dọa Zero-Day trước khi gây hại cho dữ liệu doanh nghiệp.",
     partnerBrand: "Juniper & Palo Alto Networks",
-    image: "/src/assets/images/hero_telecom_network_1794281038938.jpg",
+    image: "/src/assets/images/sol_cyber_security_1794294802431.jpg",
     keyFeatures: [
       "Định tuyến lõi và chuyển mạch trung tâm dữ liệu tốc độ 100G/400G",
       "Tường lửa thế hệ mới (NGFW) nhận diện ứng dụng (App-ID) và người dùng (User-ID)",
@@ -212,7 +213,7 @@ export const SOLUTIONS: Solution[] = [
     shortDesc: "Cung cấp cáp sợi quang, cáp ngầm, cáp treo chuyên dụng và phụ kiện đấu nối công nghiệp đạt chuẩn quốc tế.",
     detailedDesc: "Viễn Đạt là nhà phân phối và tích hợp các dòng sản phẩm cáp quang chất lượng cao của Tập đoàn Prysmian tại Việt Nam, phục vụ các tuyến trục viễn thông quốc gia, dự án năng lượng tái tạo và hệ sinh thái viễn thông băng rộng.",
     partnerBrand: "Prysmian Group",
-    image: "/src/assets/images/hero_telecom_network_1794281038938.jpg",
+    image: "/src/assets/images/sol_optical_cables_1794294802306.jpg",
     keyFeatures: [
       "Cáp quang OPGW kết hợp chống sét cho đường dây truyền tải điện cao thế",
       "Cáp quang ngầm luồn cống và cáp chôn trực tiếp độ bền cơ học siêu cao",
@@ -287,20 +288,23 @@ export const CLIENT_STORIES: ProjectCase[] = [
     scope: "Triển khai hệ thống viễn thông SCADA kết nối hơn 350 thiết bị Recloser và trạm phân phối điện tự động",
     outcome: "Giảm thời gian xử lý sự cố lưới điện xuống dưới 3 phút, tối ưu hóa độ tin cậy cung cấp điện SAIDI/SAIFI",
     techStack: "RAD Data Communications, Industrial Routers, 4G LTE, IEC 60870-5-104",
+    image: "/src/assets/images/project_evn_scada_1794294803466.jpg",
   },
   {
-    client: "Ngân hàng Thương mại Cổ phần",
+    client: "Ngân hàng Thương mại Cổ phần Hàng đầu",
     sector: "Tài chính - Ngân hàng",
     scope: "Nâng cấp hệ thống Contact Center đa kênh 600 nhân sự và tích hợp bảo mật định tuyến cuộc gọi thông minh",
     outcome: "Tăng 38% năng suất tiếp nhận cuộc gọi, đạt tỷ lệ hài lòng khách hàng CSAT 96.5%",
     techStack: "Avaya Aura, Call Center Elite, Poly Headsets, Speech Analytics",
+    image: "/src/assets/images/sol_contact_center_1794281040853.jpg",
   },
   {
-    client: "Tập đoàn Viễn thông & Đa ngành",
+    client: "Tập đoàn Viễn thông & Đa ngành Quốc gia",
     sector: "Viễn thông & Doanh nghiệp",
     scope: "Thiết kế và triển khai mạng phòng họp truyền hình trực tuyến Polycom kết nối 24 chi nhánh toàn quốc",
     outcome: "Tiết kiệm hơn 40% chi phí công tác hàng năm, chất lượng họp trực tuyến ổn định không gián đoạn",
     techStack: "Polycom RealPresence, 4K Cameras, Acoustic Fence, Smart Cloud Bridge",
+    image: "/src/assets/images/sol_video_conference_1794281042436.jpg",
   },
 ];
 

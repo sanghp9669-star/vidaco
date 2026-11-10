@@ -321,25 +321,30 @@ export const FloatingSupportButton: React.FC = () => {
         </div>
       )}
 
-      {/* Main Floating Trigger Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="group relative flex items-center gap-2.5 px-4 py-3 bg-gradient-to-r from-blue-700 via-blue-600 to-indigo-700 hover:from-blue-800 hover:to-indigo-800 text-white rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 active:scale-95 focus:outline-none"
-        aria-label="Mở kênh hỗ trợ trực tuyến"
-      >
-        <div className="relative">
-          {isOpen ? (
-            <X className="w-5 h-5 transition-transform duration-300 rotate-90" />
-          ) : (
-            <MessageSquare className="w-5 h-5" />
-          )}
-          <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-emerald-400 border-2 border-blue-700 rounded-full" />
-        </div>
+      {/* Main Floating Trigger Button with subtle outer pulse ring */}
+      <div className="relative">
+        {!isOpen && (
+          <span className="absolute -inset-1 rounded-full bg-blue-500/40 animate-ping pointer-events-none" />
+        )}
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="group relative flex items-center gap-2.5 px-4 py-3 bg-gradient-to-r from-blue-700 via-blue-600 to-indigo-700 hover:from-blue-800 hover:to-indigo-800 text-white rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 active:scale-95 focus:outline-none"
+          aria-label="Mở kênh hỗ trợ trực tuyến"
+        >
+          <div className="relative">
+            {isOpen ? (
+              <X className="w-5 h-5 transition-transform duration-300 rotate-90" />
+            ) : (
+              <MessageSquare className="w-5 h-5" />
+            )}
+            <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-emerald-400 border-2 border-blue-700 rounded-full" />
+          </div>
 
-        <span className="text-xs font-bold whitespace-nowrap tracking-wide">
-          {isOpen ? 'Đóng hỗ trợ' : 'Hỗ trợ trực tuyến'}
-        </span>
-      </button>
+          <span className="text-xs font-bold whitespace-nowrap tracking-wide">
+            {isOpen ? 'Đóng hỗ trợ' : 'Hỗ trợ trực tuyến'}
+          </span>
+        </button>
+      </div>
     </div>
   );
 };

@@ -1,123 +1,178 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { COMPANY_INFO } from '../data/viendatData';
-import { Building2, Award, Users2, ShieldCheck, Target, HeartHandshake } from 'lucide-react';
+import { Target, ShieldCheck, HeartHandshake, CheckCircle2, Award, Zap, Users, ArrowUpRight } from 'lucide-react';
 
 export const AboutSection: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<'profile' | 'milestones'>('profile');
+
+  const MILESTONES = [
+    { year: '2001', title: 'Thành lập VIDACO', desc: 'Công ty TNHH TM & DV Viễn Đạt chính thức thành lập tại Quận 1, TP.HCM.' },
+    { year: '2008', title: 'Đối tác chiến lược Avaya & Polycom', desc: 'Độc quyền phân phối và tích hợp hệ thống Contact Center & Telepresence cao cấp.' },
+    { year: '2016', title: 'Hợp tác RAD & EVN SCADA', desc: 'Triển khai mạng viễn thông tự động hóa lưới điện phân phối hàng đầu cho EVN.' },
+    { year: 'Hiện tại', title: 'Hệ sinh thái Viễn thông 4.0', desc: 'Mở rộng hạ tầng cáp Prysmian, bảo mật Palo Alto và AIOps thế hệ mới.' },
+  ];
+
   return (
     <section id="gioi-thieu" className="py-20 bg-slate-50 border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Left Column: Intro */}
-          <div className="lg:col-span-7 space-y-6">
-            <div>
-              <span className="text-xs font-bold text-blue-700 uppercase tracking-widest">
-                Về chúng tôi
-              </span>
-              <h2 className="mt-2 text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight text-balance">
-                Hơn 24 Năm Tiên Phong Trong Ngành Viễn Thông & Công Nghệ
-              </h2>
-            </div>
+        {/* Top Header */}
+        <div className="max-w-3xl mb-12">
+          <span className="text-xs font-bold text-blue-700 uppercase tracking-widest inline-flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-blue-600 animate-ping inline-block" />
+            Về chúng tôi · 24 Năm Phát Triển Vững Bền
+          </span>
+          <h2 className="mt-2 text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight text-balance">
+            Tiên Phong Công Nghệ Viễn Thông & Tự Động Hóa Doanh Nghiệp
+          </h2>
+          <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed">
+            Hơn 24 năm kinh nghiệm đồng hành cùng các tập đoàn lớn, ngân hàng và tổng công ty điện lực,
+            Viễn Đạt luôn duy trì chuẩn mực cao nhất về năng lực kỹ thuật và chất lượng bàn giao.
+          </p>
+        </div>
 
-            <p className="text-sm sm:text-base text-slate-700 leading-relaxed">
-              <strong>Công ty TNHH Thương Mại và Dịch Vụ Viễn Đạt (VIDACO)</strong> được thành lập từ
-              tháng 5 năm 2001. Trải qua hơn hai thập kỷ hình thành và phát triển vững chắc, Viễn Đạt đã
-              khẳng định vị thế là một trong những đơn vị tích hợp hệ thống viễn thông, mạng doanh nghiệp
-              và tự động hóa lưới điện uy tín hàng đầu tại Việt Nam.
-            </p>
+        {/* 2-Column Split: Image on Left + Interactive Story on Right */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
+          {/* Left Column: Authentic Lab Image with Visual Badges */}
+          <div className="lg:col-span-6 flex flex-col justify-between">
+            <div className="relative rounded-2xl overflow-hidden border border-slate-200 shadow-xl bg-slate-900 group h-full min-h-[380px]">
+              <img
+                src="/src/assets/images/about_telecom_engineers_1794294802928.jpg"
+                alt="Đội ngũ kỹ sư viễn thông Viễn Đạt đo kiểm hệ thống phòng Lab"
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
 
-            <p className="text-sm text-slate-600 leading-relaxed">
-              Chúng tôi luôn bám sát sứ mệnh cung cấp các sản phẩm, giải pháp và dịch vụ thông minh mang
-              lại hiệu quả vận hành tối ưu với chi phí hợp lý. Toàn bộ đội ngũ chuyên gia và kỹ sư của
-              Viễn Đạt được đào tạo bài bản và liên tục được cấp chứng nhận quốc tế từ các hãng công nghệ
-              toàn cầu như Avaya, Polycom, RAD, Juniper, HPE và Palo Alto Networks.
-            </p>
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent pointer-events-none" />
 
-            {/* Core Values grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-3">
-              <div className="p-4 bg-white rounded-xl border border-slate-200 shadow-xs">
-                <Target className="w-5 h-5 text-blue-600 mb-2" />
-                <h3 className="text-sm font-bold text-slate-900">Chính xác & Chuyên nghiệp</h3>
-                <p className="text-xs text-slate-500 mt-1">
-                  Tuân thủ nghiêm ngặt tiêu chuẩn kỹ thuật quốc tế và cam kết tiến độ.
-                </p>
+              {/* Floating Lab Badge */}
+              <div className="absolute top-4 left-4 bg-slate-900/85 backdrop-blur-md border border-slate-700 text-white px-3.5 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-2">
+                <Zap className="w-4 h-4 text-amber-400" />
+                <span>Phòng Lab Đo Kiểm & Nghiên Cứu Đạt Chuẩn Quốc Tế</span>
               </div>
 
-              <div className="p-4 bg-white rounded-xl border border-slate-200 shadow-xs">
-                <ShieldCheck className="w-5 h-5 text-emerald-600 mb-2" />
-                <h3 className="text-sm font-bold text-slate-900">Chất lượng Hàng đầu</h3>
-                <p className="text-xs text-slate-500 mt-1">
-                  Cung cấp 100% thiết bị chính hãng, đầy đủ hồ sơ kiểm định CO/CQ.
-                </p>
-              </div>
-
-              <div className="p-4 bg-white rounded-xl border border-slate-200 shadow-xs">
-                <HeartHandshake className="w-5 h-5 text-red-600 mb-2" />
-                <h3 className="text-sm font-bold text-slate-900">Đồng hành Bền vững</h3>
-                <p className="text-xs text-slate-500 mt-1">
-                  Dịch vụ hậu mãi tận tâm và hỗ trợ bảo trì kỹ thuật trọn đời dự án.
-                </p>
+              {/* Floating Bottom Card */}
+              <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-xl p-4 border border-slate-200 shadow-lg text-slate-900">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <div className="text-xs font-bold text-blue-700 uppercase">Đội ngũ kỹ sư tinh hoa</div>
+                    <div className="text-sm font-semibold text-slate-800 mt-0.5">
+                      100% đạt chứng chỉ chuyên sâu Avaya, Poly, Juniper, RAD
+                    </div>
+                  </div>
+                  <div className="w-10 h-10 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-sm shrink-0">
+                    24+
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Key facts / Company details box */}
-          <div className="lg:col-span-5">
-            <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-lg space-y-6">
-              <div className="flex items-center gap-3 pb-4 border-b border-slate-100">
-                <div className="w-12 h-12 rounded-xl bg-blue-700 text-white flex items-center justify-center font-bold text-xl">
-                  V
+          {/* Right Column: Interactive Tabs & Details */}
+          <div className="lg:col-span-6 flex flex-col justify-between space-y-6">
+            {/* Tabs */}
+            <div className="flex gap-2 p-1 bg-slate-200/80 rounded-xl w-fit">
+              <button
+                onClick={() => setActiveTab('profile')}
+                className={`px-4 py-2 text-xs font-semibold rounded-lg transition-all ${
+                  activeTab === 'profile'
+                    ? 'bg-white text-blue-700 shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                Hồ sơ năng lực
+              </button>
+              <button
+                onClick={() => setActiveTab('milestones')}
+                className={`px-4 py-2 text-xs font-semibold rounded-lg transition-all ${
+                  activeTab === 'milestones'
+                    ? 'bg-white text-blue-700 shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                Cột mốc lịch sử
+              </button>
+            </div>
+
+            {activeTab === 'profile' ? (
+              <div className="space-y-4">
+                <p className="text-sm text-slate-700 leading-relaxed">
+                  <strong>Công ty TNHH Thương Mại và Dịch Vụ Viễn Đạt (VIDACO)</strong> được thành lập từ
+                  tháng 5 năm 2001. Chúng tôi cung ứng giải pháp viễn thông trọn gói từ tư vấn thiết kế,
+                  nhập khẩu chính ngạch, cấu hình tích hợp đến chuyển giao công nghệ cho các cơ quan nhà nước,
+                  tập đoàn viễn thông và doanh nghiệp hàng đầu.
+                </p>
+
+                {/* 3 Core Value Cards */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                  <div className="p-3.5 bg-white rounded-xl border border-slate-200 shadow-xs hover:border-blue-400 transition-colors">
+                    <Target className="w-5 h-5 text-blue-600 mb-2" />
+                    <h3 className="text-xs font-bold text-slate-900">Chính xác & Tiêu chuẩn</h3>
+                    <p className="text-[11px] text-slate-500 mt-1">
+                      Đạt các tiêu chuẩn viễn thông quốc tế ITU-T, IEEE, IEC 61850.
+                    </p>
+                  </div>
+
+                  <div className="p-3.5 bg-white rounded-xl border border-slate-200 shadow-xs hover:border-emerald-400 transition-colors">
+                    <ShieldCheck className="w-5 h-5 text-emerald-600 mb-2" />
+                    <h3 className="text-xs font-bold text-slate-900">Chính hãng 100%</h3>
+                    <p className="text-[11px] text-slate-500 mt-1">
+                      Nhập khẩu nguyên chiếc kèm đầy đủ hồ sơ pháp lý CO, CQ.
+                    </p>
+                  </div>
+
+                  <div className="p-3.5 bg-white rounded-xl border border-slate-200 shadow-xs hover:border-rose-400 transition-colors">
+                    <HeartHandshake className="w-5 h-5 text-rose-600 mb-2" />
+                    <h3 className="text-xs font-bold text-slate-900">SLA 24/7 Tận tâm</h3>
+                    <p className="text-[11px] text-slate-500 mt-1">
+                      Trực ban ứng cứu sự cố hạ tầng kỹ thuật cam kết 15 phút.
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-base font-bold text-slate-900 leading-tight">
-                    {COMPANY_INFO.name}
-                  </h3>
-                  <div className="text-xs text-slate-500 mt-0.5">
-                    Thương hiệu giao dịch: <strong>{COMPANY_INFO.codeName}</strong>
+
+                {/* Company Specs strip */}
+                <div className="bg-white rounded-xl p-4 border border-slate-200 shadow-xs space-y-2 text-xs">
+                  <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+                    <span className="text-slate-500">Mã số thuế doanh nghiệp:</span>
+                    <span className="font-mono font-bold text-slate-800">{COMPANY_INFO.taxCode}</span>
+                  </div>
+                  <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+                    <span className="text-slate-500">Văn phòng giao dịch:</span>
+                    <span className="font-medium text-slate-800">{COMPANY_INFO.tradingOffice}</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-500">Trụ sở chính đăng ký:</span>
+                    <span className="font-medium text-slate-800">{COMPANY_INFO.headquarters}</span>
                   </div>
                 </div>
               </div>
-
-              <div className="space-y-4 text-xs sm:text-sm">
-                <div>
-                  <div className="text-slate-400 text-xs font-semibold uppercase">Năm thành lập</div>
-                  <div className="text-slate-900 font-bold text-base mt-0.5 font-mono">
-                    Tháng 05/2001 ({COMPANY_INFO.experienceYears} năm hoạt động)
+            ) : (
+              <div className="space-y-3">
+                {MILESTONES.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="p-3.5 bg-white rounded-xl border border-slate-200 shadow-xs flex items-start gap-3 hover:border-blue-300 transition-colors"
+                  >
+                    <div className="px-2.5 py-1 rounded bg-blue-100/80 text-blue-800 font-mono font-bold text-xs shrink-0">
+                      {item.year}
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-slate-900">{item.title}</div>
+                      <div className="text-[11px] text-slate-600 mt-0.5">{item.desc}</div>
+                    </div>
                   </div>
-                </div>
-
-                <div>
-                  <div className="text-slate-400 text-xs font-semibold uppercase">Mã số thuế</div>
-                  <div className="text-slate-900 font-semibold mt-0.5 font-mono">
-                    {COMPANY_INFO.taxCode}
-                  </div>
-                </div>
-
-                <div>
-                  <div className="text-slate-400 text-xs font-semibold uppercase">Trụ sở chính</div>
-                  <div className="text-slate-800 mt-0.5">{COMPANY_INFO.headquarters}</div>
-                </div>
-
-                <div>
-                  <div className="text-slate-400 text-xs font-semibold uppercase">Văn phòng giao dịch</div>
-                  <div className="text-slate-800 mt-0.5">{COMPANY_INFO.tradingOffice}</div>
-                </div>
-
-                <div>
-                  <div className="text-slate-400 text-xs font-semibold uppercase">Lĩnh vực then chốt</div>
-                  <div className="text-slate-800 mt-0.5">
-                    Viễn thông, Truyền thông hợp nhất, Tổng đài thông minh, SCADA điều khiển trạm điện, Cáp quang và An ninh mạng.
-                  </div>
-                </div>
+                ))}
               </div>
+            )}
 
-              <div className="pt-2 border-t border-slate-100">
-                <a
-                  href="#lien-he"
-                  className="w-full inline-flex items-center justify-center py-2.5 px-4 text-xs font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors"
-                >
-                  Liên hệ trao đổi hợp tác
-                </a>
-              </div>
+            {/* Bottom Link CTA */}
+            <div className="pt-2 flex items-center justify-between">
+              <a
+                href="#lien-he"
+                className="text-xs font-bold text-blue-700 hover:text-blue-800 flex items-center gap-1 group"
+              >
+                <span>Tải hồ sơ năng lực doanh nghiệp (Company Profile)</span>
+                <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </a>
             </div>
           </div>
         </div>
