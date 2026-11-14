@@ -1,67 +1,53 @@
 import React from 'react';
 import { SERVICES } from '../data/viendatData';
-import { Compass, Layers, ShieldCheck, GraduationCap, CheckCircle } from 'lucide-react';
-
-const iconMap = {
-  Compass,
-  Layers,
-  ShieldCheck,
-  GraduationCap,
-};
+import { ArrowRight } from 'lucide-react';
 
 export const ServicesSection: React.FC = () => {
   return (
-    <section id="dich-vu" className="py-20 bg-white border-b border-slate-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto">
-          <span className="text-xs font-bold text-blue-700 uppercase tracking-widest">
-            Năng lực triển khai & dịch vụ
-          </span>
-          <h2 className="mt-2 text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight text-balance">
-            Dịch Vụ Kỹ Thuật Viễn Thông Toàn Diện
+    <section id="dich-vu" className="py-20 lg:py-28 bg-zinc-50 border-b border-zinc-200">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-2xl">
+          <div className="text-xs font-medium text-blue-700">
+            Quy trình & dịch vụ kỹ thuật
+          </div>
+          <h2 className="mt-2 text-2xl sm:text-3xl font-semibold text-zinc-950 tracking-[-0.025em] text-balance">
+            Đồng hành xuyên suốt vòng đời hạ tầng
           </h2>
-          <p className="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed">
-            Viễn Đạt không chỉ cung ứng phần cứng mà còn đồng hành trọn vòng đời dự án từ khâu khảo sát,
-            thiết kế đến bảo trì 24/7, cam kết chất lượng theo tiêu chuẩn khắt khe nhất.
+          <p className="mt-3 text-sm sm:text-base text-zinc-600 leading-relaxed">
+            Từ khảo sát hiện trường, thiết kế kiến trúc hệ thống đến triển khai tích hợp và cam kết
+            ứng cứu sự cố kỹ thuật 24/7.
           </p>
         </div>
 
-        <div className="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Architectural 4-Column Hairline Grid (Linear / Vercel style) */}
+        <div className="mt-12 bg-white border border-zinc-200 rounded-xl overflow-hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-zinc-200">
           {SERVICES.map((srv, index) => {
-            const Icon = iconMap[srv.iconName as keyof typeof iconMap] || Compass;
             const stepNum = `0${index + 1}`;
-
             return (
               <div
                 key={srv.id}
-                className="bg-slate-50/70 hover:bg-slate-50 rounded-2xl p-6 border border-slate-200/80 transition-all hover:border-blue-300 hover:shadow-sm flex flex-col justify-between"
+                className="p-6 sm:p-7 flex flex-col justify-between md:border-b lg:border-b-0 border-zinc-200"
               >
-                <div>
-                  <div className="flex items-center justify-between mb-5">
-                    <div className="w-12 h-12 rounded-xl bg-blue-100/80 text-blue-700 flex items-center justify-center">
-                      <Icon className="w-6 h-6" />
-                    </div>
-                    <span className="text-xs font-mono font-bold text-slate-400">
-                      BƯỚC {stepNum}
-                    </span>
+                <div className="space-y-3">
+                  <div className="font-mono text-xs font-medium text-blue-700">
+                    {stepNum}
                   </div>
-
-                  <h3 className="text-lg font-bold text-slate-900 tracking-tight">
+                  <h3 className="text-base font-semibold text-zinc-950 tracking-tight">
                     {srv.title}
                   </h3>
-                  <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
                     {srv.description}
                   </p>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-slate-200/70">
-                  <div className="text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-2">
-                    Kết quả bàn giao:
+                <div className="mt-8 pt-4 border-t border-zinc-100">
+                  <div className="text-[11px] font-medium text-zinc-400 mb-2">
+                    Hạng mục bàn giao
                   </div>
-                  <ul className="space-y-1.5">
+                  <ul className="space-y-1.5 text-xs text-zinc-600">
                     {srv.deliverables.map((item, dIdx) => (
-                      <li key={dIdx} className="flex items-start gap-2 text-xs text-slate-600">
-                        <CheckCircle className="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5" />
+                      <li key={dIdx} className="flex items-baseline gap-2">
+                        <span className="text-zinc-400 select-none">·</span>
                         <span>{item}</span>
                       </li>
                     ))}
@@ -72,25 +58,27 @@ export const ServicesSection: React.FC = () => {
           })}
         </div>
 
-        {/* SLA Guarantee Callout */}
-        <div className="mt-12 bg-slate-900 text-white rounded-2xl p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="space-y-2 max-w-2xl text-center md:text-left">
-            <h4 className="text-lg sm:text-xl font-bold tracking-tight text-white">
-              Cam kết dịch vụ hỗ trợ ứng cứu sự cố viễn thông SLA 24/7
-            </h4>
-            <p className="text-xs sm:text-sm text-slate-300">
-              Đội ngũ kỹ sư trực sẵn sàng tại TP. Hồ Chí Minh và các trung tâm hỗ trợ khu vực.
-              Thời gian tiếp nhận thông tin trong vòng 15 phút, có mặt tại hiện trường xử lý nhanh chóng.
+        {/* Quiet Solid Dark SLA Callout */}
+        <div className="mt-8 bg-zinc-950 text-white rounded-xl p-6 sm:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="space-y-1.5 max-w-2xl">
+            <div className="text-xs font-mono text-zinc-400">
+              SLA 24/7 · Phản hồi trong 15 phút
+            </div>
+            <h3 className="text-base sm:text-lg font-semibold tracking-tight text-white">
+              Cam kết trực ban kỹ thuật & ứng cứu sự cố viễn thông toàn quốc
+            </h3>
+            <p className="text-xs sm:text-sm text-zinc-400">
+              Đội ngũ kỹ sư chuyên trách luôn sẵn sàng hỗ trợ từ xa hoặc trực tiếp tại hiện trường
+              cùng thiết bị dự phòng thay thế tạm thời.
             </p>
           </div>
-          <div className="shrink-0 flex items-center gap-3">
-            <a
-              href="#lien-he"
-              className="px-5 py-3 text-xs font-bold text-slate-900 bg-white hover:bg-slate-100 rounded-lg transition-colors whitespace-nowrap"
-            >
-              Liên hệ bộ phận kỹ thuật
-            </a>
-          </div>
+          <a
+            href="#lien-he"
+            className="px-4 py-2.5 text-xs font-medium text-zinc-950 bg-white hover:bg-zinc-100 rounded-lg transition-colors inline-flex items-center gap-1.5 whitespace-nowrap shrink-0 self-start md:self-auto"
+          >
+            <span>Liên hệ bộ phận kỹ thuật</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </a>
         </div>
       </div>
     </section>

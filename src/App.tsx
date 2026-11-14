@@ -28,37 +28,22 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen bg-white text-zinc-950 flex flex-col font-sans selection:bg-blue-700 selection:text-white">
       {/* Navigation Top Bar */}
       <Navbar onOpenConsultation={() => scrollToConsultation()} />
 
       {/* Main Content */}
       <main className="flex-1">
-        {/* Hero Section */}
         <Hero onOpenConsultation={() => scrollToConsultation()} />
-
-        {/* Live Network & SLA Diagnostic Prober */}
         <NetworkProberWidget />
-
-        {/* Global Technology Partners Bar */}
         <PartnersSection />
-
-        {/* About Viendat */}
-        <AboutSection />
-
-        {/* Core Solutions Bento / Showcase */}
         <SolutionsSection
           onSelectSolution={(sol) => setActiveModalSolution(sol)}
           onOpenConsultation={() => scrollToConsultation()}
         />
-
-        {/* Technical Services & SLA */}
         <ServicesSection />
-
-        {/* Enterprise Case Studies & Track Record */}
         <CaseStudiesSection />
-
-        {/* Interactive Consultation / Quote Form & Offices */}
+        <AboutSection />
         <QuoteConsultationSection preselectedSolutionId={selectedSolutionForQuote} />
       </main>
 

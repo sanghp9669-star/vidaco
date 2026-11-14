@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { COMPANY_INFO, SOLUTIONS } from '../data/viendatData';
-import { Send, CheckCircle2, Phone, Mail, MapPin, Clock, AlertCircle } from 'lucide-react';
+import { CheckCircle2, AlertCircle, ArrowRight } from 'lucide-react';
 
 interface QuoteConsultationSectionProps {
   preselectedSolutionId?: string;
@@ -19,15 +19,21 @@ export const QuoteConsultationSection: React.FC<QuoteConsultationSectionProps> =
     note: '',
   });
 
+  useEffect(() => {
+    if (preselectedSolutionId) {
+      setFormData((prev) => ({ ...prev, solutionId: preselectedSolutionId }));
+    }
+  }, [preselectedSolutionId]);
+
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const validate = () => {
     const errs: Record<string, string> = {};
-    if (!formData.fullName.trim()) errs.fullName = 'Vui lòng nhập họ và tên của bạn';
-    if (!formData.company.trim()) errs.company = 'Vui lòng nhập tên công ty / đơn vị';
+    if (!formData.fullName.trim()) errs.fullName = 'Vui lòng nhập họ và tên';
+    if (!formData.company.trim()) errs.company = 'Vui lòng nhập tên đơn vị';
     if (!formData.phone.trim()) {
-      errs.phone = 'Vui lòng nhập số điện thoại liên hệ';
+      errs.phone = 'Vui lòng nhập số điện thoại';
     } else if (!/^[0-9+\s().-]{8,15}$/.test(formData.phone.trim())) {
       errs.phone = 'Số điện thoại không hợp lệ';
     }
@@ -48,112 +54,87 @@ export const QuoteConsultationSection: React.FC<QuoteConsultationSectionProps> =
   };
 
   return (
-    <section id="lien-he" className="py-20 bg-slate-100/70 border-b border-slate-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          {/* Left Column: Contact details & Viendat Offices */}
-          <div className="lg:col-span-5 space-y-6">
+    <section id="lien-he" className="py-20 lg:py-28 bg-zinc-50">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          {/* Left Column: Clean Typographic Directory (no colored icon boxes) */}
+          <div className="lg:col-span-5 space-y-8">
             <div>
-              <span className="text-xs font-bold text-blue-700 uppercase tracking-widest">
-                Đồng hành cùng doanh nghiệp
-              </span>
-              <h2 className="mt-2 text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight text-balance">
-                Liên Hệ Tư Vấn & Nhận Báo Giá Dự Án
+              <div className="text-xs font-medium text-blue-700">
+                Liên hệ dự án
+              </div>
+              <h2 className="mt-2 text-2xl sm:text-3xl font-semibold text-zinc-950 tracking-[-0.025em] text-balance">
+                Trao đổi trực tiếp cùng đội ngũ kỹ sư Viễn Đạt
               </h2>
-              <p className="mt-3 text-sm text-slate-600 leading-relaxed">
-                Đội ngũ chuyên gia kỹ sư của Viễn Đạt sẵn sàng khảo sát thực tế hiện trường và tư vấn
-                kiến trúc giải pháp kỹ thuật viễn thông tối ưu nhất cho quý đơn vị.
+              <p className="mt-3 text-sm text-zinc-600 leading-relaxed">
+                Chúng tôi tiếp nhận yêu cầu khảo sát hiện trường, thiết kế phương án kỹ thuật và lập
+                dự toán thiết bị chính hãng trong vòng 24 giờ làm việc.
               </p>
             </div>
 
-            {/* Direct Contact Cards */}
-            <div className="space-y-4 pt-2">
-              <div className="p-4 rounded-xl bg-white border border-slate-200 flex items-start gap-3.5 shadow-xs">
-                <div className="w-10 h-10 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center shrink-0">
-                  <Phone className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-xs font-semibold text-slate-500 uppercase">
-                    Đường dây nóng hỗ trợ (Hotlines)
-                  </div>
-                  <div className="mt-1 flex flex-wrap gap-x-3 gap-y-1 font-bold text-slate-900 font-mono text-sm sm:text-base">
-                    {COMPANY_INFO.hotlines.map((num, i) => (
-                      <a
-                        key={i}
-                        href={`tel:${num.replace(/\D/g, '')}`}
-                        className="hover:text-blue-700 transition-colors"
-                      >
-                        {num}
-                      </a>
-                    ))}
-                  </div>
-                  <div className="text-xs text-slate-500 mt-0.5">Fax: {COMPANY_INFO.fax}</div>
-                </div>
+            <dl className="divide-y divide-zinc-200 border-t border-b border-zinc-200 text-xs sm:text-sm">
+              <div className="py-4 space-y-1">
+                <dt className="text-xs text-zinc-500">Đường dây nóng (Hotlines)</dt>
+                <dd className="font-mono font-semibold text-zinc-950 flex flex-wrap gap-x-4 gap-y-1">
+                  {COMPANY_INFO.hotlines.map((num, i) => (
+                    <a
+                      key={i}
+                      href={`tel:${num.replace(/\D/g, '')}`}
+                      className="hover:text-blue-700 transition-colors"
+                    >
+                      {num}
+                    </a>
+                  ))}
+                </dd>
+                <dd className="text-xs text-zinc-500">Fax: {COMPANY_INFO.fax}</dd>
               </div>
 
-              <div className="p-4 rounded-xl bg-white border border-slate-200 flex items-start gap-3.5 shadow-xs">
-                <div className="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
-                  <Mail className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-xs font-semibold text-slate-500 uppercase">Email liên hệ</div>
+              <div className="py-4 space-y-1">
+                <dt className="text-xs text-zinc-500">Email tiếp nhận hồ sơ</dt>
+                <dd>
                   <a
                     href={`mailto:${COMPANY_INFO.email}`}
-                    className="mt-1 inline-block font-bold text-slate-900 text-sm sm:text-base hover:text-blue-700 transition-colors"
+                    className="font-medium text-zinc-950 hover:text-blue-700 transition-colors"
                   >
                     {COMPANY_INFO.email}
                   </a>
-                  <div className="text-xs text-slate-500 mt-0.5">Phản hồi báo giá trong 24 giờ</div>
-                </div>
+                </dd>
               </div>
 
-              <div className="p-4 rounded-xl bg-white border border-slate-200 flex items-start gap-3.5 shadow-xs">
-                <div className="w-10 h-10 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center shrink-0">
-                  <MapPin className="w-5 h-5" />
-                </div>
-                <div className="text-xs sm:text-sm space-y-2">
-                  <div>
-                    <div className="font-semibold text-slate-900">Văn phòng giao dịch:</div>
-                    <div className="text-slate-600 mt-0.5">{COMPANY_INFO.tradingOffice}</div>
-                  </div>
-                  <div>
-                    <div className="font-semibold text-slate-900">Trụ sở chính:</div>
-                    <div className="text-slate-600 mt-0.5">{COMPANY_INFO.headquarters}</div>
-                  </div>
-                </div>
+              <div className="py-4 space-y-1">
+                <dt className="text-xs text-zinc-500">Văn phòng giao dịch</dt>
+                <dd className="text-zinc-900">{COMPANY_INFO.tradingOffice}</dd>
               </div>
 
-              <div className="p-4 rounded-xl bg-white border border-slate-200 flex items-start gap-3.5 shadow-xs">
-                <div className="w-10 h-10 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center shrink-0">
-                  <Clock className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-xs font-semibold text-slate-500 uppercase">Thời gian làm việc</div>
-                  <div className="text-xs sm:text-sm font-semibold text-slate-800 mt-1">
-                    {COMPANY_INFO.workingHours}
-                  </div>
-                </div>
+              <div className="py-4 space-y-1">
+                <dt className="text-xs text-zinc-500">Trụ sở chính</dt>
+                <dd className="text-zinc-900">{COMPANY_INFO.headquarters}</dd>
               </div>
-            </div>
+
+              <div className="py-4 space-y-1">
+                <dt className="text-xs text-zinc-500">Thời gian làm việc</dt>
+                <dd className="text-zinc-900">{COMPANY_INFO.workingHours}</dd>
+              </div>
+            </dl>
           </div>
 
-          {/* Right Column: Lead Form */}
+          {/* Right Column: Flat Crisp Hairline Form */}
           <div className="lg:col-span-7">
-            <div className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-lg">
+            <div className="bg-white rounded-xl border border-zinc-200 p-6 sm:p-8">
               {submitted ? (
                 <div className="py-12 text-center space-y-4">
-                  <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 mx-auto flex items-center justify-center">
-                    <CheckCircle2 className="w-8 h-8" />
+                  <div className="w-12 h-12 rounded-full bg-zinc-100 text-zinc-950 mx-auto flex items-center justify-center">
+                    <CheckCircle2 className="w-6 h-6 text-blue-700" />
                   </div>
-                  <h3 className="text-2xl font-bold text-slate-900">
-                    Gửi Yêu Cầu Thành Công!
+                  <h3 className="text-xl font-semibold text-zinc-950">
+                    Đã tiếp nhận yêu cầu tư vấn
                   </h3>
-                  <p className="text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
-                    Cảm ơn Quý khách đã quan tâm đến giải pháp của <strong>Viễn Đạt Telecom</strong>.
-                    Chuyên viên kỹ thuật phụ trách dự án sẽ liên hệ lại với Quý khách qua số điện thoại{' '}
-                    <strong className="text-slate-900">{formData.phone}</strong> trong thời gian sớm nhất.
+                  <p className="text-sm text-zinc-600 max-w-md mx-auto leading-relaxed">
+                    Cảm ơn Quý khách đã liên hệ <strong className="font-medium text-zinc-950">Viễn Đạt</strong>.
+                    Kỹ sư phụ trách giải pháp sẽ liên hệ lại qua số{' '}
+                    <span className="font-mono font-medium text-zinc-950">{formData.phone}</span> trong thời gian sớm nhất.
                   </p>
-                  <div className="pt-4">
+                  <div className="pt-2">
                     <button
                       onClick={() => {
                         setSubmitted(false);
@@ -167,36 +148,35 @@ export const QuoteConsultationSection: React.FC<QuoteConsultationSectionProps> =
                           note: '',
                         });
                       }}
-                      className="px-5 py-2.5 text-xs font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors"
+                      className="px-4 py-2 text-xs font-medium text-zinc-700 hover:text-zinc-950 border border-zinc-200 rounded-lg transition-colors cursor-pointer"
                     >
-                      Gửi thêm yêu cầu khác
+                      Gửi yêu cầu khác
                     </button>
                   </div>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="border-b border-slate-100 pb-4">
-                    <h3 className="text-lg font-bold text-slate-900">
-                      Phiếu Yêu Cầu Tư Vấn & Báo Giá Thiết Bị
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  <div className="border-b border-zinc-200 pb-4">
+                    <h3 className="text-base font-semibold text-zinc-950">
+                      Phiếu yêu cầu tư vấn & báo giá
                     </h3>
-                    <p className="text-xs text-slate-500 mt-1">
-                      Vui lòng điền thông tin để đội ngũ kỹ sư Viễn Đạt chuẩn bị hồ sơ kỹ thuật tốt nhất.
+                    <p className="text-xs text-zinc-500 mt-1">
+                      Vui lòng cung cấp thông tin để bộ phận kỹ thuật chuẩn bị cấu hình phù hợp.
                     </p>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {/* Full Name */}
                     <div>
-                      <label className="block text-xs font-semibold text-slate-700 mb-1">
-                        Họ và tên người liên hệ <span className="text-red-500">*</span>
+                      <label className="block text-xs font-medium text-zinc-700 mb-1.5">
+                        Họ và tên <span className="text-red-600">*</span>
                       </label>
                       <input
                         type="text"
                         value={formData.fullName}
                         onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                         placeholder="Nguyễn Văn A"
-                        className={`w-full px-3.5 py-2.5 text-sm rounded-lg border bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 transition-colors ${
-                          errors.fullName ? 'border-red-400 bg-red-50/30' : 'border-slate-300'
+                        className={`w-full px-3 py-2 text-sm rounded-lg border bg-white focus:outline-none focus:ring-2 focus:ring-blue-700/20 focus:border-blue-700 transition-colors ${
+                          errors.fullName ? 'border-red-400' : 'border-zinc-300'
                         }`}
                       />
                       {errors.fullName && (
@@ -206,18 +186,17 @@ export const QuoteConsultationSection: React.FC<QuoteConsultationSectionProps> =
                       )}
                     </div>
 
-                    {/* Company */}
                     <div>
-                      <label className="block text-xs font-semibold text-slate-700 mb-1">
-                        Tên công ty / Cơ quan <span className="text-red-500">*</span>
+                      <label className="block text-xs font-medium text-zinc-700 mb-1.5">
+                        Công ty / Tổ chức <span className="text-red-600">*</span>
                       </label>
                       <input
                         type="text"
                         value={formData.company}
                         onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                        placeholder="Công ty Cổ phần / Ngân hàng..."
-                        className={`w-full px-3.5 py-2.5 text-sm rounded-lg border bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 transition-colors ${
-                          errors.company ? 'border-red-400 bg-red-50/30' : 'border-slate-300'
+                        placeholder="Tên doanh nghiệp hoặc cơ quan"
+                        className={`w-full px-3 py-2 text-sm rounded-lg border bg-white focus:outline-none focus:ring-2 focus:ring-blue-700/20 focus:border-blue-700 transition-colors ${
+                          errors.company ? 'border-red-400' : 'border-zinc-300'
                         }`}
                       />
                       {errors.company && (
@@ -227,18 +206,17 @@ export const QuoteConsultationSection: React.FC<QuoteConsultationSectionProps> =
                       )}
                     </div>
 
-                    {/* Phone */}
                     <div>
-                      <label className="block text-xs font-semibold text-slate-700 mb-1">
-                        Số điện thoại liên lạc <span className="text-red-500">*</span>
+                      <label className="block text-xs font-medium text-zinc-700 mb-1.5">
+                        Số điện thoại <span className="text-red-600">*</span>
                       </label>
                       <input
                         type="tel"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         placeholder="0912 345 678"
-                        className={`w-full px-3.5 py-2.5 text-sm rounded-lg border bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 transition-colors ${
-                          errors.phone ? 'border-red-400 bg-red-50/30' : 'border-slate-300'
+                        className={`w-full px-3 py-2 text-sm rounded-lg border bg-white focus:outline-none focus:ring-2 focus:ring-blue-700/20 focus:border-blue-700 transition-colors ${
+                          errors.phone ? 'border-red-400' : 'border-zinc-300'
                         }`}
                       />
                       {errors.phone && (
@@ -248,18 +226,17 @@ export const QuoteConsultationSection: React.FC<QuoteConsultationSectionProps> =
                       )}
                     </div>
 
-                    {/* Email */}
                     <div>
-                      <label className="block text-xs font-semibold text-slate-700 mb-1">
-                        Email doanh nghiệp <span className="text-red-500">*</span>
+                      <label className="block text-xs font-medium text-zinc-700 mb-1.5">
+                        Email công việc <span className="text-red-600">*</span>
                       </label>
                       <input
                         type="email"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="ten@doanhnghiep.vn"
-                        className={`w-full px-3.5 py-2.5 text-sm rounded-lg border bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 transition-colors ${
-                          errors.email ? 'border-red-400 bg-red-50/30' : 'border-slate-300'
+                        className={`w-full px-3 py-2 text-sm rounded-lg border bg-white focus:outline-none focus:ring-2 focus:ring-blue-700/20 focus:border-blue-700 transition-colors ${
+                          errors.email ? 'border-red-400' : 'border-zinc-300'
                         }`}
                       />
                       {errors.email && (
@@ -270,16 +247,15 @@ export const QuoteConsultationSection: React.FC<QuoteConsultationSectionProps> =
                     </div>
                   </div>
 
-                  {/* Solution selector */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold text-slate-700 mb-1">
-                        Giải pháp công nghệ quan tâm
+                      <label className="block text-xs font-medium text-zinc-700 mb-1.5">
+                        Giải pháp quan tâm
                       </label>
                       <select
                         value={formData.solutionId}
                         onChange={(e) => setFormData({ ...formData, solutionId: e.target.value })}
-                        className="w-full px-3.5 py-2.5 text-sm rounded-lg border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                        className="w-full px-3 py-2 text-sm rounded-lg border border-zinc-300 bg-white focus:outline-none focus:ring-2 focus:ring-blue-700/20 focus:border-blue-700"
                       >
                         {SOLUTIONS.map((s) => (
                           <option key={s.id} value={s.id}>
@@ -290,13 +266,13 @@ export const QuoteConsultationSection: React.FC<QuoteConsultationSectionProps> =
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-700 mb-1">
-                        Quy mô dự án dự kiến
+                      <label className="block text-xs font-medium text-zinc-700 mb-1.5">
+                        Quy mô dự án
                       </label>
                       <select
                         value={formData.projectScale}
                         onChange={(e) => setFormData({ ...formData, projectScale: e.target.value })}
-                        className="w-full px-3.5 py-2.5 text-sm rounded-lg border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                        className="w-full px-3 py-2 text-sm rounded-lg border border-zinc-300 bg-white focus:outline-none focus:ring-2 focus:ring-blue-700/20 focus:border-blue-700"
                       >
                         <option value="Dự án nâng cấp hệ thống phòng họp / phòng lab">
                           Nâng cấp phòng họp / phòng lab
@@ -317,31 +293,30 @@ export const QuoteConsultationSection: React.FC<QuoteConsultationSectionProps> =
                     </div>
                   </div>
 
-                  {/* Note / Scope */}
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1">
-                      Mô tả chi tiết yêu cầu kỹ thuật & tiến độ
+                    <label className="block text-xs font-medium text-zinc-700 mb-1.5">
+                      Mô tả yêu cầu kỹ thuật
                     </label>
                     <textarea
                       rows={3}
                       value={formData.note}
                       onChange={(e) => setFormData({ ...formData, note: e.target.value })}
-                      placeholder="Ví dụ: Cần triển khai hệ thống tổng đài Contact Center 80 agents tích hợp CRM hiện hữu, thời gian dự kiến trong quý 2..."
-                      className="w-full px-3.5 py-2.5 text-sm rounded-lg border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                      placeholder="Ví dụ: Cần triển khai hệ thống Contact Center 80 agents tích hợp CRM, thời gian dự kiến quý 2..."
+                      className="w-full px-3 py-2 text-sm rounded-lg border border-zinc-300 bg-white focus:outline-none focus:ring-2 focus:ring-blue-700/20 focus:border-blue-700"
                     />
                   </div>
 
-                  <div className="pt-2">
+                  <div className="pt-1 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <p className="text-[11px] text-zinc-500">
+                      Thông tin được bảo mật theo quy định của Viễn Đạt.
+                    </p>
                     <button
                       type="submit"
-                      className="w-full py-3.5 text-sm font-semibold text-white bg-blue-700 hover:bg-blue-800 rounded-lg shadow-sm transition-all flex items-center justify-center gap-2 active:scale-95"
+                      className="px-5 py-2.5 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 rounded-lg transition-colors inline-flex items-center justify-center gap-2 whitespace-nowrap cursor-pointer"
                     >
-                      <Send className="w-4 h-4" />
-                      <span>Gửi yêu cầu khảo sát & nhận báo giá</span>
+                      <span>Gửi yêu cầu</span>
+                      <ArrowRight className="w-4 h-4" />
                     </button>
-                    <p className="text-[11px] text-slate-500 text-center mt-2">
-                      Thông tin của Quý khách được Viễn Đạt bảo mật tuyệt đối theo quy định pháp luật.
-                    </p>
                   </div>
                 </form>
               )}

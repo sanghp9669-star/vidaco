@@ -1,6 +1,6 @@
 import React from 'react';
 import { Solution } from '../data/viendatData';
-import { X, CheckCircle2, Award, Cpu, ShieldAlert, ArrowRight } from 'lucide-react';
+import { X, ArrowRight } from 'lucide-react';
 
 interface SolutionModalProps {
   solution: Solution | null;
@@ -16,35 +16,40 @@ export const SolutionModal: React.FC<SolutionModalProps> = ({
   if (!solution) return null;
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200">
-      <div className="bg-white rounded-2xl max-w-3xl w-full overflow-hidden shadow-2xl border border-slate-200 relative my-8">
-        {/* Modal Header */}
-        <div className="relative bg-slate-900 text-white p-6 sm:p-8">
+    <div
+      className="fixed inset-0 z-50 overflow-y-auto bg-zinc-950/60 backdrop-blur-xs flex items-center justify-center p-4 sm:p-6"
+      onClick={onClose}
+    >
+      <div
+        className="bg-white rounded-xl max-w-2xl w-full overflow-hidden border border-zinc-200 shadow-2xl relative my-8"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Clean Light Editorial Header */}
+        <div className="p-6 border-b border-zinc-200 flex items-start justify-between gap-4">
+          <div className="space-y-1">
+            <div className="text-xs font-mono font-medium text-blue-700">
+              {solution.partnerBrand}
+            </div>
+            <h3 className="text-lg sm:text-xl font-semibold text-zinc-950 tracking-tight">
+              {solution.title}
+            </h3>
+            <p className="text-xs text-zinc-500">
+              {solution.subtitle}
+            </p>
+          </div>
+
           <button
             onClick={onClose}
-            className="absolute top-5 right-5 p-2 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors"
+            className="p-1.5 rounded-lg text-zinc-400 hover:text-zinc-950 hover:bg-zinc-100 transition-colors cursor-pointer"
             aria-label="Đóng cửa sổ"
           >
             <X className="w-5 h-5" />
           </button>
-
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-blue-600/30 border border-blue-400/30 text-blue-300 text-xs font-semibold mb-3">
-            <Award className="w-3.5 h-3.5" />
-            <span>Đối tác công nghệ: {solution.partnerBrand}</span>
-          </div>
-
-          <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-white pr-8">
-            {solution.title}
-          </h3>
-          <p className="text-xs sm:text-sm text-slate-300 mt-1">
-            {solution.subtitle}
-          </p>
         </div>
 
-        {/* Modal Body */}
-        <div className="p-6 sm:p-8 space-y-6 max-h-[70vh] overflow-y-auto">
-          {/* Main image */}
-          <div className="rounded-xl overflow-hidden aspect-[16/9] border border-slate-200 bg-slate-900">
+        {/* Body */}
+        <div className="p-6 space-y-6 max-h-[70vh] overflow-y-auto">
+          <div className="rounded-lg overflow-hidden aspect-[16/9] border border-zinc-200 bg-zinc-100">
             <img
               src={solution.image}
               alt={solution.title}
@@ -53,72 +58,67 @@ export const SolutionModal: React.FC<SolutionModalProps> = ({
             />
           </div>
 
-          {/* Description */}
           <div>
-            <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
+            <h4 className="text-xs font-medium text-zinc-400 mb-1.5">
               Tổng quan kỹ thuật
             </h4>
-            <p className="text-sm text-slate-700 leading-relaxed">
+            <p className="text-sm text-zinc-700 leading-relaxed">
               {solution.detailedDesc}
             </p>
           </div>
 
-          {/* Key Features */}
           <div>
-            <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">
-              Tính năng nổi bật & Năng lực vận hành
+            <h4 className="text-xs font-medium text-zinc-400 mb-2.5">
+              Năng lực vận hành
             </h4>
-            <div className="space-y-2">
+            <ul className="space-y-2 text-xs sm:text-sm text-zinc-700">
               {solution.keyFeatures.map((feat, idx) => (
-                <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700">
-                  <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+                <li key={idx} className="flex items-baseline gap-2.5">
+                  <span className="text-zinc-400 font-mono text-xs select-none">—</span>
                   <span>{feat}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="text-xs font-medium text-zinc-400 mb-2.5">
+              Thông số kỹ thuật
+            </h4>
+            <div className="border border-zinc-200 rounded-lg overflow-hidden divide-y divide-zinc-200 text-xs sm:text-sm">
+              {solution.specs.map((item, idx) => (
+                <div key={idx} className="grid grid-cols-3 bg-white">
+                  <div className="px-3.5 py-2.5 text-zinc-500 bg-zinc-50 border-r border-zinc-200">
+                    {item.label}
+                  </div>
+                  <div className="col-span-2 px-3.5 py-2.5 font-mono font-medium text-zinc-950">
+                    {item.value}
+                  </div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Specs Table */}
           <div>
-            <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">
-              Thông số & Tiêu chuẩn kỹ thuật
+            <h4 className="text-xs font-medium text-zinc-400 mb-2">
+              Phạm vi ứng dụng
             </h4>
-            <div className="border border-slate-200 rounded-xl overflow-hidden">
-              <table className="min-w-full divide-y divide-slate-200 text-xs sm:text-sm">
-                <tbody className="divide-y divide-slate-100">
-                  {solution.specs.map((item, idx) => (
-                    <tr key={idx} className="hover:bg-slate-50">
-                      <td className="px-4 py-2.5 font-medium text-slate-500 w-1/3 bg-slate-50/50">
-                        {item.label}
-                      </td>
-                      <td className="px-4 py-2.5 font-semibold text-slate-900 font-mono">
-                        {item.value}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          {/* Practical Applications */}
-          <div>
-            <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
-              Lĩnh vực ứng dụng thực tế
-            </h4>
-            <ul className="list-disc list-inside space-y-1 text-xs sm:text-sm text-slate-600">
+            <ul className="space-y-1.5 text-xs sm:text-sm text-zinc-600">
               {solution.applications.map((app, idx) => (
-                <li key={idx}>{app}</li>
+                <li key={idx} className="flex items-baseline gap-2">
+                  <span className="text-zinc-400">·</span>
+                  <span>{app}</span>
+                </li>
               ))}
             </ul>
           </div>
         </div>
 
-        {/* Modal Footer */}
-        <div className="p-4 sm:p-6 bg-slate-50 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3">
+        {/* Footer */}
+        <div className="px-6 py-4 bg-zinc-50 border-t border-zinc-200 flex items-center justify-between gap-3">
           <button
             onClick={onClose}
-            className="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-slate-900"
+            className="px-3.5 py-2 text-xs font-medium text-zinc-600 hover:text-zinc-950 cursor-pointer"
           >
             Đóng
           </button>
@@ -127,7 +127,7 @@ export const SolutionModal: React.FC<SolutionModalProps> = ({
               onRequestQuote(solution.id);
               onClose();
             }}
-            className="px-5 py-2.5 text-xs font-semibold text-white bg-blue-700 hover:bg-blue-800 rounded-lg flex items-center gap-2 transition-colors active:scale-95"
+            className="px-4 py-2 text-xs font-medium text-white bg-blue-700 hover:bg-blue-800 rounded-lg inline-flex items-center gap-1.5 transition-colors cursor-pointer"
           >
             <span>Yêu cầu tư vấn giải pháp này</span>
             <ArrowRight className="w-3.5 h-3.5" />
